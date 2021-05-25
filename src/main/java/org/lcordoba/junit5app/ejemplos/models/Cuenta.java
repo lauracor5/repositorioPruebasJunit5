@@ -1,10 +1,14 @@
-package org.lcordoba.junit5app.ejemplos;
+package org.lcordoba.junit5app.ejemplos.models;
 
 import java.math.BigDecimal;
+import org.lcordoba.junit5app.ejemplos.excepcion.DineroInsufcienteException;
+
 
 public class Cuenta {
     private String persona;
     private BigDecimal saldo;
+    private Banco banco;
+
 
     public Cuenta(String persona, BigDecimal saldo) {
         this.persona = persona;
@@ -27,13 +31,27 @@ public class Cuenta {
         this.saldo = saldo;
     }
 
+    public Banco getBanco() {
+        return banco;
+    }
+
+    public void setBanco(Banco banco) {
+        this.banco = banco;
+    }
+
     public void debito(BigDecimal monto){
-        this.saldo=this.saldo.subtract(monto);
+       BigDecimal nuevoSaldo =this.saldo.subtract(monto);
+       if(nuevoSaldo.compareTo(BigDecimal.ZERO)  <0 ){
+        throw new DineroInsufcienteException("Dinero Insuficiente");
+       }
+       this.saldo = nuevoSaldo;
     }
 
     public void credito(BigDecimal monto){
         this.saldo=this.saldo.add(monto);
     }
+
+
 
     @Override
     public boolean equals(Object obj){

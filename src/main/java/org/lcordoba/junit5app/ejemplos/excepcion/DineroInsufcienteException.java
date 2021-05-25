@@ -1,4 +1,4 @@
-package org.lcordoba.junit5app.excepcion;
+package org.lcordoba.junit5app.ejemplos.excepcion;
 
 public class DineroInsufcienteException extends RuntimeException {
     public DineroInsufcienteException(String message) {
